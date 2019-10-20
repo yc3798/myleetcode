@@ -63,16 +63,11 @@ class Solution(object):
 	#==================
     # Linear, without rec helper
     def isValidBSTLinear2(self,root):
-        """
-        Assume base case is leaf, not None 
-        :type root: TreeNode
-        :rtype: min, max, bool
-        """	
         if root is None:
         	return None, None, True 
         if root.left is None and root.right is None:
         	return root.val, root.val, True
-        	
+
         lmin = sys.maxsize
         rmin = sys.maxsize
         lmax = -sys.maxsize
@@ -88,7 +83,7 @@ class Solution(object):
        	if root.right is not None:
        		rmin, rmax, rbool = self.isValidBSTLinear2(root.right)
        		if root.val > rmin:
-       			lbool = False
+       			rbool = False
        		rmin = min(root.val, rmin)
        		rmax = max(root.val, rmax)
        		# print(root.val,rmin,rmax,rbool)       
