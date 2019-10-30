@@ -6,10 +6,11 @@ class TreeNode(object):
 
 
  def pruneSingle(t):
- 	if t is None or (t.left is None and t.right is None):
+ 	if t is None:
  		return None
-
- 	if t.left is not None and t.right is not None:
+ 	elif t.left is None and t.right is None:
+ 		return t
+ 	elif t.left is not None and t.right is not None:
  		t.left = pruneSingle(t.left)
  		t.right = pruneSingle(t.right)
  	elif t.left is None:

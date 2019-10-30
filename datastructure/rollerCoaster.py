@@ -6,7 +6,7 @@ def rollercoaster(A):
 	n = len(A)
 	if n == 1:
 		return A 
-	m = median_of_medians(A, (n-1)//2) # SELECT 
+	m = median_of_medians(A, (n-1)//2) # == SELECT 
 	B = [None for i in range(n)]
 	i = 0
 	j = 1
