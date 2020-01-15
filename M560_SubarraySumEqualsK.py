@@ -12,7 +12,7 @@
 # the range of the integer k is [-1e7, 1e7].
 
 
-# Dynamic Programming
+# 1. Dynamic Programming: O(n^2)
 # S[i,j] = sum of subarray nums[i...j]
 # base case: S[i,i] = nums[i]
 # S[i,j] = S[i, j-1] + nums[j]
@@ -21,20 +21,33 @@
 # Edge case:
 # 记得数本身nums[i] == k
 
+
+# 2. Use Hash Map to store {sum:count}
+# If (k-sum) in hashmap: 
 # recall subset sum: if array contains subset with sum equals k 
 # This is different case!!
 class Solution:
-	def subarraySum(self, nums:List[int], k : int) -> int:
+	# 2.
+	def subarraySum(self,nums, k):
 		n = len(nums)
+		S = [0 for i in range(n)]
+		for i in range(n):
+			S = S[i-1] + nums[i] # S[i] stores sum of array nums[...i]
+			
+	# 1.
+	def subarraySumDP(self, nums:List[int], k : int) -> int:
+		n = len(nums)
+
 		# edge cases
 		if n == 0:
 			return 1 if k == 0 else 0
 		if n == 1:
-			return n == k
+			return 1 if nums[0] == k else 0
 
 		S = [[0 for j in range(n)] for i in range(n)]
 
 		count = 0
+
 		# Initialize 
 		for i in range(n):
 			S[i][i] = nums[i]
