@@ -1,15 +1,10 @@
+# 1/16
 # 560. Subarray Sum Equals K
 # Given an array of integers and an integer k, 
 # you need to find the total number of continuous subarrays whose sum equals to k.
 
-# Example 1:
 # Input:nums = [1,1,1], k = 2
 # Output: 2
-
-# Note:
-# The length of the array is in range [1, 20,000].
-# The range of numbers in the array is [-1000, 1000] and 
-# the range of the integer k is [-1e7, 1e7].
 
 
 # 1. Dynamic Programming: O(n^2)
@@ -22,17 +17,36 @@
 # 记得数本身nums[i] == k
 
 
-# 2. Use Hash Map to store {sum:count}
-# If (k-sum) in hashmap: 
+# 2. Use HashMap to store {sum:count} O(n)
+# Each step, check if (sum - k) in d AND if sum == k
+# Reasoning: [....i....j], if sum[j] - sum[i] = k, subarray found. 
+# so we need to count how many times a sum has occured when we iterate through the array
+
+
 # recall subset sum: if array contains subset with sum equals k 
 # This is different case!!
+
 class Solution:
-	# 2.
+	# 2. Hashmap O(n)
 	def subarraySum(self,nums, k):
 		n = len(nums)
 		S = [0 for i in range(n)]
+		d = {}
+		count = 0
 		for i in range(n):
-			S = S[i-1] + nums[i] # S[i] stores sum of array nums[...i]
+			S[i] = S[i-1] + nums[i] # S[i] stores sum of array nums[...i]
+			# check if S == k 
+			if S[i] == k:
+				count += 1
+			if S[i] - k in d:
+				count += d[S[i] - k]
+
+			if S[i] in d:
+				d[S[i]] += 1
+			else:
+				d[S[i]] = 1
+		return count
+
 			
 	# 1.
 	def subarraySumDP(self, nums:List[int], k : int) -> int:

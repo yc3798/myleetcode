@@ -1,3 +1,4 @@
+# 1/15
 # Input: 3
 # Output: 5
 # Explanation:
