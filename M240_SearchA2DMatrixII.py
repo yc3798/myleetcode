@@ -19,30 +19,52 @@
 
 # Given target = 20, return false.
 
-# BFS search
+
+# 1. search each cell once  O(mn) 
+class SolutionBF:
+    def searchMatrix(self, matrix, target):
+        for row in matrix:
+            if target in row:
+                return True
+        
+        return False
+# TODO: 2. Binary serach
+class SolutionBS:
+    def searchMatrix(self, matrix, target):
+
+# 3. Divide and Conquer
 class Solution:
-	def searchMatrix(self, matrix, target):
-		"""
-		:type matrix: List[List[int]]
-		:type target: int
-		:rtype: bool
-		"""
-		if matrix == []:
-			return False
-		m = len(matrix)
-		n = len(matrix[0]) # m x n matrix
+    def searchMatrix(self, matrix, target):
+        if matrix == [[]] or matrix == []:
+            return False
+        return self.helper(matrix, 0, len(matrix[0]), 0, len(matrix), target)
 
-		# keep track of BFS visit
-		visited = {(i,j): False for i in range(m) for j in range(n)}
+    def helper(self, M, col_low, col_high, row_low, row_high, k):
+        # out of boundary
+        if col_low < 0 or col_high > len(M[0]) or row_low < 0 or row_high > len(M) or M[row_low][col_low] > k or M[row_high - 1][col_high - 1] < k:
+            return False
+        
+        # one cell
+        if col_low == col_high - 1 and row_low == row_high - 1: 
+            return M[row_low][col_low] == target
 
-		def BFS(i,j):
-			# go either right or down
-			if i < 0 or j < 0 or i == m or j == n or visited[(i,j)]:
-				return False
-			visited[(i, j)] = True
-			if matrix[i][j] == target:
-				return True
-			return BFS(i + 1, j) or BFS(i, j + 1) 
+        # find the pos s.t M[row_low][pos] < target < M[pos, row_high] 
+        pos = col_low
+        col_mid = (col_high - col_low) // 2
 
-		return BFS(0, 0)
+        for i in range(col_low + 1, row_high):
+            if M[i][col_mid] == k:
+                return True
+            if M[i-1][col_mid] < k and M[i][col_mid] > k:
+                pos = i
+                break
 
+        if M[row_high - 1][col_mid] < k:
+        	pos = row_high
+        # now we break down matrix around pos into 4 parts, 
+        # and continue search in lower-left, upper-right submatrix
+
+        # < k | ok
+        # ----|----
+        # ok  | > k
+        return self.helper(M, col_low, col_mid, pos, row_high, k) or self.helper(M, col_mid, col_high, row_low, pos, k)
