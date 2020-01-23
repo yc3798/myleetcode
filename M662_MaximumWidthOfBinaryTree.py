@@ -1,4 +1,4 @@
-
+# 1/15
 # Naive BFS
 # Use BFS(FIFO queue), track depth and a visit order index along the traversal. - O(n) 
 # record d = {depth:[first non-None index, ...,last non-None index]}

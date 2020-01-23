@@ -18,7 +18,7 @@
 
 
 # 2. Use HashMap to store {sum:count} O(n)
-# Each step, check if (sum - k) in d AND if sum == k
+# Each step, check if (sum - k) in d OR if sum == k
 # Reasoning: [....i....j], if sum[j] - sum[i] = k, subarray found. 
 # so we need to count how many times a sum has occured when we iterate through the array
 
