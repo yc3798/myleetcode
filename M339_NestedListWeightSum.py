@@ -41,6 +41,8 @@
 #        :rtype List[NestedInteger]
 #        """
 
+
+# DFS 最外层是depth 1
 class Solution:
     def depthSum(self, nestedList: List[NestedInteger]) -> int:
         def DFS(nl, d):
