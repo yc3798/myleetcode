@@ -37,7 +37,7 @@ def superstack(ops):
 	# create stack
 	mystack = Stack()
 
-	def parse(op):
+	def runop(op):
 		command = op.split() 
 		if command[0] == "push":
 			mystack.push(int(command[1]))
@@ -47,7 +47,7 @@ def superstack(ops):
 			mystack.pop()
 
 	for i in range(1, n+1): # n operations in total
-		parse(ops[i])
+		runop(ops[i])
 
 test = [12, "push 4", "pop", "push 3", "push 5", "push 2", "inc 3 1", "pop", "push 1", "inc 2 2", "push 4", "pop", "pop"]
 superstack(test)
