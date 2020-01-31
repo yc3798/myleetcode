@@ -1,5 +1,8 @@
 
 # BFS: 最里层是depth 1 
+# 先用Queue perform BFS，记录{depth:value sum} for each depth
+# 再将结果反过来计算weighted sum 
+# that is, weight = maxdepth - depth 
 class Solution:
     def depthSumInverse(self, nestedList: List[NestedInteger]) -> int:
         queue = [(nestedList, 1)]

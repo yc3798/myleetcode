@@ -16,7 +16,7 @@
 # Output: 5
 
 # O(n) memory and time
-# using list
+# using lists
 class Solution:
     def calculate(self, s: str) -> int:
         # remove white spaces
