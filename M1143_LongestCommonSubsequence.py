@@ -28,7 +28,7 @@ class Solution1:
         # mem[0,0] = LCS from t1[0] and t2[0]
         return mem[0][0]
 
-# Dynamic Prog Bottom up: 
+# 2. Dynamic Prog Bottom up: 
 # lcs[i][j] = lcs of text1[1...i] and text2[1...j]
 # base case: lcs[0][:] = 0, lcs[:][0] = 0
 # if text1[i] == text2[j]

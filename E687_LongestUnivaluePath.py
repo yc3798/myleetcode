@@ -33,41 +33,23 @@
 
 class Solution:
     
-    # This helper function will return the longest chain length
-    # that starts with the passing "node" that has the same vals with the passing "num"
-    def helper(self, num, node):
-              
-        if not node: 
-            return 0; # Return 0 if the node is NULL
-        
-        # Return 0 if the node has different val with the passing number
-        # Meaning the chain is not connected after this point
-        if node.val != num:
-            return 0;
-        
-        # Get the results from its child nodes
-        res_left = self.helper(node.val, node.left)
-        res_right = self.helper(node.val, node.right)
-        
-        # Return the final result
-        return 1 + max(res_left, res_right)
-        
-        
-        
+    def helper(self, val, node):
+        """
+        Return the longest path passing current node and 
+        all values equals val (node's parent val)
+        """
+        if not node or node.val != val:
+            return 0
+        return max(self.helper(val, node.left), self.helper(val, node.right)) + 1
+
     def longestUnivaluePath(self, root: TreeNode) -> int:
-        
-        # Return 0 if the root is NULL   
         if not root:
-            return 0;
+            return 0 
+
+        maxfromroot = self.helper(root.val, root.left) + self.helper(root.val, root.right)
+        maxfromleft = self.longestUnivaluePath(root.left)
+        maxfromright = self.longestUnivaluePath(root.right)
+
+        return max(maxfromroot, maxfromleft, maxfromright)
         
-        # Get the longest chain that passes through the root
-        chain_through_root = self.helper(root.val, root.left)+self.helper(root.val, root.right)
         
-        # Get the longest chain that doesn't pass through the root
-        # 1. The chain that is from the left child
-        chain_left_child = self.longestUnivaluePath(root.left)
-        # 2. The chain that is from the right child
-        chain_right_child = self.longestUnivaluePath(root.right)
-        
-        # Return the longest one
-        return max(chain_through_root, chain_left_child, chain_right_child)
