@@ -13,8 +13,10 @@
 # Output: 4
 
 class Solution:
-    # Brute force 
-    def maximalSquare(self, matrix: List[List[str]]) -> int:
+    # Brute force: O((mn)^2)
+    # since we need to check for every cell = 1,
+    # in worst case, we have the lowerleft cell == 0
+    def maximalSquareBF(self, matrix: List[List[str]]) -> int:
         if matrix == [] or len(matrix[0]) == 0:
             return 0
         
@@ -43,4 +45,27 @@ class Solution:
                         maxwidth = max(maxwidth, width) 
                         width += 1
                     
-        return maxwidth ** 2          
+        return maxwidth ** 2     
+
+    # dynamic programming O(mn) time and space
+    # D[i,j] = min(D[i-1, j], D[i, j-1], D[i-1, j-1]) + 1 if M[i,j] == 1, else 0 
+    # D: width of square ending at i,j 
+    def maximalSquare(self, matrix) -> int:
+        if matrix == [] or len(matrix[0]) == 0:
+            return 0 
+
+        D = [[int(k) for k in line] for line in matrix] # deep copy 
+        m, n = len(matrix), len(matrix[0])
+        res = 0
+        for i in range(m):
+            for j in range(n):
+                if matrix[i][j] == "1":
+                    if i == 0 or j == 0:
+                        res = max(res, 1)
+
+                    else: # i, j > 1
+                        D[i][j] = min(D[i-1][j],D[i][j-1],D[i-1][j-1]) + 1
+                        res = max(D[i][j], res)
+        return res ** 2 # note that the problem asks for area 
+
+
