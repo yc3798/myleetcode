@@ -24,13 +24,21 @@
 #           4   4   5
 # Output: 2
 
-# Structure:
-# 
-# 1. left == root == right, return 2 + left + right 
-# 2. left == root, return max(1 + left, right)
-# 3. right == root, return max(1+right, left)
-# 4. else: return max(right, left)
 
+# path has 3 form:
+# 1. passing through root 
+# 2. passing left node:
+#    this case can further break into 3 cases: 
+#    passing left node, passing left.left, passing left.right
+# 3. passing right node
+#    this case can further break into 3 cases: 
+#    passing right node, passing right.right, passing right.right
+# Structure: Define a helper to calculate longest path passing current node with identical val
+
+# time: T(n) = T(k) + T(n-1-k) + n
+# for simplicity assume balanced tree,
+# time: T(n) = 2T(n/2)+ n
+# O(nlogn)
 class Solution:
     
     def helper(self, val, node):

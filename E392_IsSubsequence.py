@@ -1,6 +1,6 @@
 class Solution:
     # if s is subsequence of t
-    #  two pointer
+    # two pointer
     def isSubsequence(self, s:str, t:str) -> bool:
         i = j = 0
         

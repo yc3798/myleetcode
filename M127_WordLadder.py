@@ -25,7 +25,7 @@ class Solution:
             curr, prevpos, path = queue.pop(0)
             # we reach the target word in BFS search, return 
             if curr == endWord:
-                return len(path) + 1
+                return len(path) + 1 
             for i in range(n):
                 # avoid chaging previously changed index at prevpos
                 if i != prevpos:
